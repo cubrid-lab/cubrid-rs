@@ -21,6 +21,7 @@ fn test_table(suffix: &str) -> String {
 // ─── Connection Tests ────────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_connect_and_ping() {
     let mut client = Client::connect(&test_dsn()).expect("connect failed");
     let version = client.ping().expect("ping failed");
@@ -40,6 +41,7 @@ fn test_connect_invalid_dsn() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_connect_and_close() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
     assert!(!client.is_closed());
@@ -48,6 +50,7 @@ fn test_connect_and_close() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_double_close() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
     client.close().expect("first close");
@@ -55,6 +58,7 @@ fn test_double_close() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_operations_after_close() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
     client.close().expect("close");
@@ -65,6 +69,7 @@ fn test_operations_after_close() {
 // ─── DDL Tests ───────────────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_create_and_drop_table() {
     let table = test_table("create_drop");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -97,6 +102,7 @@ fn test_create_and_drop_table() {
 // ─── DML Tests ───────────────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_insert_and_query() {
     let table = test_table("insert_query");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -143,6 +149,7 @@ fn test_insert_and_query() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_insert_multiple_and_count() {
     let table = test_table("multi_insert");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -179,6 +186,7 @@ fn test_insert_multiple_and_count() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_update_rows() {
     let table = test_table("update");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -219,6 +227,7 @@ fn test_update_rows() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_delete_rows() {
     let table = test_table("delete");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -262,6 +271,7 @@ fn test_delete_rows() {
 // ─── Type Tests ──────────────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_numeric_types() {
     let table = test_table("numerics");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -313,6 +323,7 @@ fn test_numeric_types() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_string_types() {
     let table = test_table("strings");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -363,6 +374,7 @@ fn test_string_types() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_null_values() {
     let table = test_table("nulls");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -396,6 +408,7 @@ fn test_null_values() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_date_time_types() {
     let table = test_table("datetime");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -469,6 +482,7 @@ fn test_date_time_types() {
 // ─── Transaction Tests ───────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_commit_transaction() {
     let table = test_table("tx_commit");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -505,6 +519,7 @@ fn test_commit_transaction() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_rollback_transaction() {
     let table = test_table("tx_rollback");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -553,6 +568,7 @@ fn test_rollback_transaction() {
 // ─── Prepared Statement Tests ────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_prepared_statement_execute() {
     let table = test_table("prep_exec");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -593,6 +609,7 @@ fn test_prepared_statement_execute() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_prepared_statement_query() {
     let table = test_table("prep_query");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -633,6 +650,7 @@ fn test_prepared_statement_query() {
 // ─── Query Edge Cases ────────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_select_expression() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
 
@@ -649,6 +667,7 @@ fn test_select_expression() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_select_multiple_expressions() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
 
@@ -660,6 +679,7 @@ fn test_select_multiple_expressions() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_empty_result_set() {
     let table = test_table("empty_rs");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -683,6 +703,7 @@ fn test_empty_result_set() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_large_result_set() {
     let table = test_table("large_rs");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -715,6 +736,7 @@ fn test_large_result_set() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_sql_error() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
     let result = client.execute("SELECT * FROM nonexistent_table_xyz_123", &[]);
@@ -723,6 +745,7 @@ fn test_sql_error() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_column_metadata() {
     let table = test_table("col_meta");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -772,6 +795,7 @@ fn test_column_metadata() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_special_characters_in_strings() {
     let table = test_table("special_chars");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -810,6 +834,7 @@ fn test_special_characters_in_strings() {
 // ─── Multiple Connections ────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_multiple_connections() {
     let mut c1 = Client::connect(&test_dsn()).expect("connect 1");
     let mut c2 = Client::connect(&test_dsn()).expect("connect 2");
@@ -825,6 +850,7 @@ fn test_multiple_connections() {
 // ─── Last Insert ID ─────────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_last_insert_id() {
     let table = test_table("last_id");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -854,6 +880,7 @@ fn test_last_insert_id() {
 // ─── Proto Version ──────────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_proto_version() {
     let client = Client::connect(&test_dsn()).expect("connect");
     let version = client.proto_version();
@@ -866,6 +893,7 @@ fn test_proto_version() {
 // ─── Auto-commit Mode ───────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_auto_commit_toggle() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
     assert!(client.auto_commit(), "default should be auto-commit on");
@@ -882,6 +910,7 @@ fn test_auto_commit_toggle() {
 // ─── Prepared Statement: Empty Params (FC=3 Path) ──────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_prepared_statement_execute_no_params() {
     let table = test_table("prep_noparams");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -923,6 +952,7 @@ fn test_prepared_statement_execute_no_params() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_prepared_statement_query_no_params() {
     let table = test_table("prep_q_noparams");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -955,6 +985,7 @@ fn test_prepared_statement_query_no_params() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_prepared_statement_query_error() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
 
@@ -975,6 +1006,7 @@ fn test_prepared_statement_query_error() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_prepared_statement_large_result_fetch() {
     let table = test_table("prep_large");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -1014,6 +1046,7 @@ fn test_prepared_statement_large_result_fetch() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_into_iter_for_query_result() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
     let result = client
@@ -1037,6 +1070,7 @@ fn test_into_iter_for_query_result() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_statement_close_already_closed() {
     let table = test_table("stmt_close_idempotent");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -1061,6 +1095,7 @@ fn test_statement_close_already_closed() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_last_insert_id_with_value() {
     let table = test_table("last_id_val");
     let mut client = Client::connect(&test_dsn()).expect("connect");
@@ -1090,6 +1125,7 @@ fn test_last_insert_id_with_value() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_last_insert_id_no_insert() {
     let mut client = Client::connect(&test_dsn()).expect("connect");
 

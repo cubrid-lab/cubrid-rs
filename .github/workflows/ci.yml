@@ -63,5 +63,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: Run integration tests
         env:
-          CUBRID_TEST_DSN: "cubrid://dba:@localhost:33000/testdb"
+          # Test helpers read these vars: client/tokio use CUBRID_TEST_URL,
+          # pool uses CUBRID_DSN. DB name must match the service's CUBRID_DB (testdb).
+          CUBRID_TEST_URL: "cubrid://dba:@localhost:33000/testdb"
+          CUBRID_DSN: "cubrid://dba:@localhost:33000/testdb"
         run: cargo test --workspace -- --ignored

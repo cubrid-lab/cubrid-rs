@@ -16,6 +16,7 @@ fn get_dsn() -> String {
 // ─── Sync Pool Tests ─────────────────────────────────────────────────────────
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_sync_pool_create_and_status() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(5).min_idle(2);
@@ -29,6 +30,7 @@ fn test_sync_pool_create_and_status() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_sync_pool_get_and_return() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(3).min_idle(1);
@@ -53,6 +55,7 @@ fn test_sync_pool_get_and_return() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_sync_pool_multiple_connections() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(3).min_idle(1);
@@ -74,6 +77,7 @@ fn test_sync_pool_multiple_connections() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_sync_pool_exhausted() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(2).min_idle(0);
@@ -94,6 +98,7 @@ fn test_sync_pool_exhausted() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_sync_pool_close_rejects_new_gets() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(3).min_idle(1);
@@ -109,6 +114,7 @@ fn test_sync_pool_close_rejects_new_gets() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_sync_pool_query_with_params() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(3).min_idle(1);
@@ -147,6 +153,7 @@ fn test_sync_pool_query_with_params() {
 }
 
 #[test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 fn test_sync_pool_connection_reuse() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(1).min_idle(1);
@@ -172,6 +179,7 @@ fn test_sync_pool_connection_reuse() {
 // ─── Async Pool Tests ────────────────────────────────────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_pool_create_and_status() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(5).min_idle(2);
@@ -185,6 +193,7 @@ async fn test_async_pool_create_and_status() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_pool_get_and_return() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(3).min_idle(1);
@@ -210,6 +219,7 @@ async fn test_async_pool_get_and_return() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_pool_multiple_connections() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(3).min_idle(1);
@@ -232,6 +242,7 @@ async fn test_async_pool_multiple_connections() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_pool_exhausted() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(2).min_idle(0);
@@ -251,6 +262,7 @@ async fn test_async_pool_exhausted() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_pool_close_rejects_new_gets() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(3).min_idle(1);
@@ -266,6 +278,7 @@ async fn test_async_pool_close_rejects_new_gets() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_pool_query_with_params() {
     let dsn = get_dsn();
     let config = PoolConfig::new(&dsn).max_size(3).min_idle(1);
