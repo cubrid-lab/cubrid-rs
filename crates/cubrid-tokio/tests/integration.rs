@@ -20,6 +20,7 @@ fn test_table(suffix: &str) -> String {
 // ─── Connection Tests ────────────────────────────────────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_connect_and_ping() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
     let version = client.ping().await.expect("ping");
@@ -29,6 +30,7 @@ async fn test_async_connect_and_ping() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_connect_and_close() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
     assert!(!client.is_closed());
@@ -39,6 +41,7 @@ async fn test_async_connect_and_close() {
 // ─── DDL/DML Tests ───────────────────────────────────────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_create_insert_query_drop() {
     let table = test_table("crud");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -83,6 +86,7 @@ async fn test_async_create_insert_query_drop() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_select_expression() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
 
@@ -98,6 +102,7 @@ async fn test_async_select_expression() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_transaction_commit() {
     let table = test_table("tx_commit");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -134,6 +139,7 @@ async fn test_async_transaction_commit() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_transaction_rollback() {
     let table = test_table("tx_rollback");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -185,6 +191,7 @@ async fn test_async_transaction_rollback() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_null_handling() {
     let table = test_table("nulls");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -219,6 +226,7 @@ async fn test_async_null_handling() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_large_result_set() {
     let table = test_table("large_rs");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -256,6 +264,7 @@ async fn test_async_large_result_set() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_multiple_connections() {
     let mut c1 = Client::connect(&test_dsn()).await.expect("connect 1");
     let mut c2 = Client::connect(&test_dsn()).await.expect("connect 2");
@@ -269,6 +278,7 @@ async fn test_async_multiple_connections() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_sql_error() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
     let result = client
@@ -279,6 +289,7 @@ async fn test_async_sql_error() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_last_insert_id() {
     let table = test_table("last_id");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -318,6 +329,7 @@ async fn test_async_connect_invalid_dsn() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_double_close() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
     client.close().await.expect("first close");
@@ -328,6 +340,7 @@ async fn test_async_double_close() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_operations_after_close() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
     client.close().await.expect("close");
@@ -338,6 +351,7 @@ async fn test_async_operations_after_close() {
 // ─── Additional DDL/DML Tests ───────────────────────────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_create_and_drop_table() {
     let table = test_table("create_drop");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -369,6 +383,7 @@ async fn test_async_create_and_drop_table() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_insert_multiple_and_count() {
     let table = test_table("multi_insert");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -410,6 +425,7 @@ async fn test_async_insert_multiple_and_count() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_update_rows() {
     let table = test_table("update");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -456,6 +472,7 @@ async fn test_async_update_rows() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_delete_rows() {
     let table = test_table("delete");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -505,6 +522,7 @@ async fn test_async_delete_rows() {
 // ─── Type Tests ──────────────────────────────────────────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_numeric_types() {
     let table = test_table("numerics");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -559,6 +577,7 @@ async fn test_async_numeric_types() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_string_types() {
     let table = test_table("strings");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -612,6 +631,7 @@ async fn test_async_string_types() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_date_time_types() {
     let table = test_table("datetime");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -689,6 +709,7 @@ async fn test_async_date_time_types() {
 // ─── Query Edge Cases ────────────────────────────────────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_empty_result_set() {
     let table = test_table("empty_rs");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -716,6 +737,7 @@ async fn test_async_empty_result_set() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_select_multiple_expressions() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
 
@@ -730,6 +752,7 @@ async fn test_async_select_multiple_expressions() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_column_metadata() {
     let table = test_table("col_meta");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -774,6 +797,7 @@ async fn test_async_column_metadata() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_special_characters_in_strings() {
     let table = test_table("special_chars");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -817,6 +841,7 @@ async fn test_async_special_characters_in_strings() {
 // ─── Auto-commit / Proto Version ────────────────────────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_auto_commit_toggle() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
     assert!(client.auto_commit(), "default should be auto-commit on");
@@ -831,6 +856,7 @@ async fn test_async_auto_commit_toggle() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_proto_version() {
     let client = Client::connect(&test_dsn()).await.expect("connect");
     let version = client.proto_version();
@@ -843,6 +869,7 @@ async fn test_async_proto_version() {
 // ─── Prepared Statement Tests ───────────────────────────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_prepared_statement_execute() {
     let table = test_table("prep_exec");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -888,6 +915,7 @@ async fn test_async_prepared_statement_execute() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_prepared_statement_query() {
     let table = test_table("prep_query");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -934,6 +962,7 @@ async fn test_async_prepared_statement_query() {
 // ─── Prepared Statement: Empty Params (FC=3 Path) ──────────────────────────
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_prepared_statement_execute_no_params() {
     let table = test_table("prep_noparams");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -984,6 +1013,7 @@ async fn test_async_prepared_statement_execute_no_params() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_prepared_statement_query_no_params() {
     let table = test_table("prep_q_noparams");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -1024,6 +1054,7 @@ async fn test_async_prepared_statement_query_no_params() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_prepared_statement_query_closed_error() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
 
@@ -1042,6 +1073,7 @@ async fn test_async_prepared_statement_query_closed_error() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_prepared_statement_large_result_fetch() {
     let table = test_table("prep_large");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -1089,6 +1121,7 @@ async fn test_async_prepared_statement_large_result_fetch() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_statement_close_already_closed() {
     let table = test_table("async_stmt_close_idem");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -1119,6 +1152,7 @@ async fn test_async_statement_close_already_closed() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_last_insert_id_with_value() {
     let table = test_table("async_last_id_val");
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
@@ -1151,6 +1185,7 @@ async fn test_async_last_insert_id_with_value() {
 }
 
 #[tokio::test]
+#[ignore = "requires live CUBRID server; run with: cargo test -- --ignored"]
 async fn test_async_last_insert_id_no_insert() {
     let mut client = Client::connect(&test_dsn()).await.expect("connect");
 
