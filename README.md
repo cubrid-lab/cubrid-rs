@@ -5,15 +5,15 @@
 <!-- BADGES:START -->
 [![crates.io](https://img.shields.io/crates/v/cubrid-client.svg)](https://crates.io/crates/cubrid-client)
 [![Rust 1.75+](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
-[![CI](https://github.com/cubrid-labs/cubrid-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/cubrid-labs/cubrid-rs/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/badge/coverage-95.11%25-brightgreen.svg)](https://github.com/cubrid-labs/cubrid-rs)
-[![license](https://img.shields.io/github/license/cubrid-labs/cubrid-rs)](https://github.com/cubrid-labs/cubrid-rs/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/cubrid-labs/cubrid-rs)](https://github.com/cubrid-labs/cubrid-rs)
+[![CI](https://github.com/cubrid-lab/cubrid-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/cubrid-lab/cubrid-rs/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/badge/coverage-95.11%25-brightgreen.svg)](https://github.com/cubrid-lab/cubrid-rs)
+[![license](https://img.shields.io/github/license/cubrid-lab/cubrid-rs)](https://github.com/cubrid-lab/cubrid-rs/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/cubrid-lab/cubrid-rs)](https://github.com/cubrid-lab/cubrid-rs)
 <!-- BADGES:END -->
 
 ## Built by Reverse Engineering
 
-cubrid-rs was not built from an official protocol specification — **none exists**. Instead, the entire CAS (Common Application Server) binary wire protocol was decoded by cross-referencing three existing open-source implementations ([cubrid-go](https://github.com/cubrid-labs/cubrid-go), [cubrid-client](https://github.com/cubrid-labs/cubrid-client), [pycubrid](https://github.com/cubrid-labs/pycubrid)), running targeted experiments against live CUBRID servers, and reading server-side C source code when the clients disagreed.
+cubrid-rs was not built from an official protocol specification — **none exists**. Instead, the entire CAS (Common Application Server) binary wire protocol was decoded by cross-referencing three existing open-source implementations ([cubrid-go](https://github.com/cubrid-lab/cubrid-go), [cubrid-client](https://github.com/cubrid-lab/cubrid-client), [pycubrid](https://github.com/cubrid-lab/pycubrid)), running targeted experiments against live CUBRID servers, and reading server-side C source code when the clients disagreed.
 
 The full reverse engineering story — methodology, discoveries, pitfalls, and protocol details — is documented in **[PROTOCOL_RESEARCH.md](docs/PROTOCOL_RESEARCH.md)**.
 
@@ -237,8 +237,8 @@ By cross-referencing three existing open-source client implementations (Go, Type
 
 | Package | Description |
 |:---|:---|
-| [cubrid-rs](https://github.com/cubrid-labs/cubrid-rs) | Native Rust CUBRID workspace |
-| [sea-orm-cubrid](https://github.com/cubrid-labs/sea-orm-cubrid) | SeaORM backend for CUBRID |
+| [cubrid-rs](https://github.com/cubrid-lab/cubrid-rs) | Native Rust CUBRID workspace |
+| [sea-orm-cubrid](https://github.com/cubrid-lab/sea-orm-cubrid) | SeaORM backend for CUBRID |
 
 ## Disclaimer
 
@@ -249,7 +249,7 @@ This project is part of [CUBRID Lab](https://github.com/cubrid-lab), an independ
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) for detailed release plans and protocol implementation progress.
 
-For the ecosystem-wide view, see the [CUBRID Labs Ecosystem Roadmap](https://github.com/cubrid-labs/.github/blob/main/ROADMAP.md) and [Project Board](https://github.com/orgs/cubrid-labs/projects/2).
+For the ecosystem-wide view, see the [CUBRID Lab Ecosystem Roadmap](https://github.com/cubrid-lab/.github/blob/main/ROADMAP.md) and [Project Board](https://github.com/orgs/cubrid-lab/projects/2).
 
 
 MIT

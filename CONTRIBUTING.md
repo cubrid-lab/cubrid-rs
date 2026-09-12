@@ -23,7 +23,7 @@ Thank you for your interest in contributing. This guide explains the development
 ### Installation
 
 ```bash
-git clone https://github.com/cubrid-labs/cubrid-rs.git
+git clone https://github.com/cubrid-lab/cubrid-rs.git
 cd cubrid-rs
 cargo build --workspace
 ```
