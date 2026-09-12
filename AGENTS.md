@@ -17,11 +17,11 @@
 - All protocol parsing must handle malformed input gracefully (no panics).
 - Prefer `thiserror` for error types, never `anyhow` in library code.
 - Tests go in `tests/` (integration) or inline `#[cfg(test)]` modules (unit).
-- Match the ecosystem patterns from other cubrid-labs repos (README structure, badges, labels, workflows).
+- Match the ecosystem patterns from other cubrid-lab repos (README structure, badges, labels, workflows).
 
-## Development Workflow (cubrid-labs org standard)
+## Development Workflow (cubrid-lab org standard)
 
-All non-trivial work across cubrid-labs repositories MUST follow this 4-phase cycle:
+All non-trivial work across cubrid-lab repositories MUST follow this 4-phase cycle:
 
 1. **Oracle Design Review** — Consult Oracle before implementation to validate architecture, API surface, and approach. Raise concerns early.
 2. **Implementation** — Build the feature/fix with tests. Follow existing codebase patterns.

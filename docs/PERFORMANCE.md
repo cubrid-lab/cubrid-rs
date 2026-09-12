@@ -190,7 +190,7 @@ perf report
 
 ### External Benchmarks
 
-See [`cubrid-benchmark`](https://github.com/cubrid-labs/cubrid-benchmark) for comparative benchmarks across:
+See [`cubrid-benchmark`](https://github.com/cubrid-lab/cubrid-benchmark) for comparative benchmarks across:
 - cubrid-rs (pure Rust)
 - cubrid-python (Python wrapper)
 - cubrid-node (Node.js wrapper)
@@ -212,4 +212,4 @@ Benchmark environment details will be available once criterion-based benchmarks 
 
 - [Architecture](./ARCHITECTURE.md) — Crate structure and design
 - [Protocol Research](./PROTOCOL_RESEARCH.md) — CAS protocol details
-- [`cubrid-benchmark`](https://github.com/cubrid-labs/cubrid-benchmark) — Comparative benchmarks across drivers
+- [`cubrid-benchmark`](https://github.com/cubrid-lab/cubrid-benchmark) — Comparative benchmarks across drivers

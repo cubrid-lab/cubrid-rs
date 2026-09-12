@@ -804,4 +804,4 @@ pub enum DataType {
 
 ---
 
-*This document is maintained as part of the [cubrid-rs](https://github.com/cubrid-labs/cubrid-rs) project. It was written during initial development of v0.1.0, based on protocol analysis of cubrid-go, cubrid-client (TypeScript), and pycubrid.*
+*This document is maintained as part of the [cubrid-rs](https://github.com/cubrid-lab/cubrid-rs) project. It was written during initial development of v0.1.0, based on protocol analysis of cubrid-go, cubrid-client (TypeScript), and pycubrid.*

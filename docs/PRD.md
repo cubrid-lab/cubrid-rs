@@ -5,7 +5,7 @@
 **Project**: cubrid-rs  
 **Current Version**: 0.1.0  
 **Status**: Scaffold  
-**Repository**: [github.com/cubrid-labs/cubrid-rs](https://github.com/cubrid-labs/cubrid-rs)  
+**Repository**: [github.com/cubrid-lab/cubrid-rs](https://github.com/cubrid-lab/cubrid-rs)  
 **License**: MIT
 
 ### 1.1 Problem Statement
@@ -140,7 +140,7 @@ async fn main() -> Result<(), cubrid_tokio::Error> {
 
 ## 6. Ecosystem Integration
 
-`cubrid-rs` is the Rust part of the cubrid-labs multi-language ecosystem:
+`cubrid-rs` is the Rust part of the cubrid-lab multi-language ecosystem:
 
 - `pycubrid` (Python DB-API)
 - `sqlalchemy-cubrid` (Python SQLAlchemy dialect)
