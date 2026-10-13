@@ -2,8 +2,9 @@
 
 <!-- CUBRID-LAB-DRIVER-ICON:START -->
 <a href="https://github.com/cubrid-lab/brand">
-  <img src="https://raw.githubusercontent.com/cubrid-lab/brand/d342189b49ac96d911e0f24a536ee7e9dd4a008a/dist/icons/cubrid-rs.svg" alt="CUBRID Lab Driver icon (Rust)" width="80" />
+  <img src="https://raw.githubusercontent.com/cubrid-lab/brand/b9686425f34177549929debd25dc28b412ff3461/dist/icons/cubrid-rs.svg" alt="CUBRID Lab Driver icon (Rust)" width="80" />
 </a>
+<p><sub>Part of <a href="https://github.com/cubrid-lab">CUBRID Lab</a> · Rust Driver</sub></p>
 <!-- CUBRID-LAB-DRIVER-ICON:END -->
 
 **Native Rust database driver for CUBRID** — built by reverse-engineering the CAS wire protocol. Pure Rust, no FFI, sync + async.
