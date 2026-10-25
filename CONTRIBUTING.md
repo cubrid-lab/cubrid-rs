@@ -111,6 +111,28 @@ test commands remain unchanged.
 
 ---
 
+## Issue ownership and coding agents
+
+Before implementing a change, inspect the latest `main`, open issues and
+overlapping PRs in **cubrid-rs**. New issues start with `status: needs triage`:
+maintainers review evidence, duplicate work, type, scope and relative urgency
+against this repository's open queue. Use exactly one
+`priority: critical/high/medium/low` and one `size: XS/S/M/L/XL`.
+Only remove the intake status after verifying the saved GitHub labels and
+actual triage decision. A priority label never means a PR is merge-ready.
+
+A human contributor can work on an unclaimed issue without a named AI reviewer
+or preapproval; maintainer-operated autonomous agents need explicit authorization
+and a confirmed assignee for internally assigned/reserved work. Check active
+contributors and agree on handoffs before overlapping the same change.
+
+Keep protocol framing and malformed-input handling panic-free, including in
+both sync and Tokio clients. Inline `#[cfg(test)]` modules are valid Rust unit
+tests; separate `tests/` integration cases run only when appropriate.
+`cargo test --workspace` does **not** prove ignored, live CUBRID scenarios
+passed; run `cargo test --workspace -- --ignored` with a real database and
+report that evidence separately. No additional agent-specific test gate.
+
 ## Reporting Issues
 
 When reporting bugs, include:
