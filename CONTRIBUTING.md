@@ -1,5 +1,7 @@
 # Contributing to cubrid-rs
 
+**Issue titles** use type-only prefixes such as `feat:` and `bug:` without module scope. **PRs and commits** continue to use Conventional Commits and local CI. See the [organization standard](https://github.com/cubrid-lab/.github/blob/main/docs/ISSUE_PR_COMMIT_STANDARD.md) for evidence, triage and verification responsibilities.
+
 Thank you for your interest in contributing. This guide explains the development workflow and quality standards for this repository.
 
 ## Table of Contents
