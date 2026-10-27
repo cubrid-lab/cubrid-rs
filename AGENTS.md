@@ -1,5 +1,10 @@
 # AGENTS.md
 
+## Organization-wide issue and PR standards
+
+See [the cubrid-lab policy](https://github.com/cubrid-lab/.github/blob/main/docs/ISSUE_PR_COMMIT_STANDARD.md). For issues, use type-only titles (`feat:`, `bug:`, `docs:`) without required module scope; communicate the clear objective, evidence and verifiable acceptance. Triage checks duplicates, scope, priority and size; PRs/commits retain existing Conventional Commits rules, CI and actual validation evidence. Avoid personal comments and agent bookkeeping in issue text.
+
+
 ## Purpose
 `cubrid-rs` provides native Rust database drivers for CUBRID - sync (`cubrid-client`) and async (`cubrid-tokio`) - implementing the CAS wire protocol directly, with no FFI or C dependencies.
 
