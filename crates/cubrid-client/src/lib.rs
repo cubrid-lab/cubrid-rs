@@ -465,7 +465,10 @@ impl Statement {
             return Err(Error::ConnectionClosed);
         }
         if !params.is_empty() {
-            // FC=41 fallback: interpolate params into SQL, use PrepareAndExecute
+            // Parameters are not bound to this prepared handle. They are substituted
+            // into the SQL text on the client (`interpolate_params`) and the result is
+            // sent as one PrepareAndExecute request (function code 41), because CAS
+            // server-side binding is not reliable for every statement type.
             return client.execute(&self.sql, params);
         }
         let auto_commit = client.auto_commit;
@@ -515,7 +518,10 @@ impl Statement {
             return Err(Error::ConnectionClosed);
         }
         if !params.is_empty() {
-            // FC=41 fallback: interpolate params into SQL, use PrepareAndExecute
+            // Parameters are not bound to this prepared handle. They are substituted
+            // into the SQL text on the client (`interpolate_params`) and the result is
+            // sent as one PrepareAndExecute request (function code 41), because CAS
+            // server-side binding is not reliable for every statement type.
             return client.query(&self.sql, params);
         }
         let auto_commit = client.auto_commit;
