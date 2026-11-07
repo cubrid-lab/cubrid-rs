@@ -29,7 +29,7 @@ See [the cubrid-lab policy](https://github.com/cubrid-lab/.github/blob/main/docs
 
 ## Development setup before design and TDD implementation
 
-Use the repository-specific [development setup guide](docs/DEVELOPMENT_SETUP.md) and [setup ADR 0005](docs/adr/0005-development-setup.md) (**Proposed**) before attempting new runtime or ORM work. Verify the **actual** manifest, supported developer toolchain, dependency resolution, read-only offline checks, and availability/absence of real CUBRID integration separately. Do not invent an unavailable Docker Compose file, integration test, linter, Cargo registry artifact, or Go module import path. A successful unit build is not a successful real-database test or a published package. Record observed setup blockers as issues; do not silently change public consumer engine/Go module paths/Rust MSRV, weaken CI, or modify release credentials to make onboarding appear green.
+Use the repository-specific [development setup guide](docs/DEVELOPMENT_SETUP.md) and [setup ADR 0005](docs/adr/0005-development-setup.md) (**Proposed**) before changing this repository's public behavior or tooling. Verify the **actual** manifest, supported developer toolchain, dependency resolution, read-only offline checks, and availability/absence of real CUBRID integration separately. Do not invent a nonexistent integration harness, lint command, published package, or dependency path. A successful unit build is not a successful real-database test or a published package. Record observed setup blockers as issues; do not silently change the project's public compatibility contract, weaken CI, or modify release credentials to make onboarding appear green.
 
 ## Test-first implementation after architecture review
 
@@ -37,11 +37,11 @@ Before implementing a CUBRID behavior change, check the approved API/SQL/protoco
 
 ## Architecture decisions and release order
 
-Read the [repository ADR index](docs/adr/README.md) before proposing changes to public behavior, release contracts, native dialect design, transaction ownership or migrations. ADR 0001 records release governance; ADR 0002 records the failure-evidence contract learned from Python; native architecture ADR 0003 (where applicable) is **Proposed** in the separate draft architecture PR. Do not treat a Proposed ADR as approved. Adopt the release policy before accepting the architecture ADR; require actual tested evidence before claiming implementation or release readiness. Use the [ADR template](docs/adr/TEMPLATE.md) for material new decisions, not for every trivial change.
+Read the [repository ADR index](docs/adr/README.md) before proposing changes to public behavior, release contracts, this repository's architecture, transaction ownership or public API. ADR 0001 records release governance; ADR 0002 records this repository's correctness-evidence requirements; architecture ADR 0003 remains **Proposed** in its own design PR. Do not treat a Proposed ADR as approved. Adopt the release policy before accepting the architecture ADR; require actual tested evidence before claiming implementation or release readiness. Use the [ADR template](docs/adr/TEMPLATE.md) for material new decisions, not for every trivial change.
 
 ## CUBRID correctness lessons and native regression review
 
-Before changing protocol, SQL generation, transaction handling, schema migrations, type codecs, connection recovery or release claims, review [the repository-specific engineering invariants](docs/ENGINEERING_INVARIANTS.md). These are based on concrete pycubrid/sqlalchemy-cubrid failure cases but must be implemented and tested using **this language's native interfaces**, not copied Python APIs. Distinguish mock tests, live CUBRID execution and independent differential evidence; never claim a check ran without its actual CI result. For an unrelated docs-only change, the checklist is advisory and does not mandate unnecessary database jobs. Existing repository review and merge requirements remain authoritative.
+Before changing protocol, SQL generation, transaction handling, schema migrations, type codecs, connection recovery or release claims, review [the repository-specific engineering invariants](docs/ENGINEERING_INVARIANTS.md). These rules are grounded in this repository's own public contract, protocol responsibilities, and verifiable CUBRID behavior. Distinguish mock tests, live CUBRID execution and independent differential evidence; never claim a check ran without its actual CI result. For an unrelated docs-only change, the checklist is advisory and does not mandate unnecessary database jobs. Existing repository review and merge requirements remain authoritative.
 
 ## Development Workflow (cubrid-lab org standard)
 
@@ -87,7 +87,7 @@ documentation, presentations, and other maintainer-facing writing.
   Do not substitute `P1`/`P2` for repository priority labels.
 - When an internal identifier is necessary for accurate cross-reference,
   **describe the subject first**, then add the identifier in context:
-  `pycubrid introduction (0:20; storyboard shot P1)`. Use descriptive
+  `package introduction (0:20; storyboard shot 1)`. Use descriptive
   names and timestamps, section titles, or paths wherever practical.
 - Use natural, actionable wording. Prefer `Listen to the full narration and
   verify the pronunciation of each project name` to `Maintainer full listen`.
@@ -123,3 +123,9 @@ reason next to it. Keep rustdoc conventions and the public API unchanged.
 
 This repository's own safety, build, test and release rules take precedence
 where they differ from the shared standard.
+
+## Repository ownership in issues, PRs, and design documents
+
+This repository owns **the Rust CAS protocol, sync/async clients, and pooling crates**. Author issue and PR titles, summaries, ADR context, acceptance criteria, and release decisions from **cubrid-rs**'s actual code, public contract and evidence. For changes affecting Cargo workspace crates, Rust ownership and lifetimes, Tokio cancellation, MSRV, crate packaging, and real CUBRID tests, cite local files/tests, expected behavior and actual verification. Do not use another repository's failures, ADRs, issue tracker or language-specific tooling as a governing authority or as the motivation in a title. Do not copy issue/PR templates from an unrelated package. SeaORM is an optional external consumer; its own implementation or release schedule is not a prerequisite for native Rust crate decisions.
+
+Cross-repository links are appropriate only for a **verified dependency/API compatibility boundary**, independently executed semantic comparison (such as official JDBC), or an explicitly identified coordination requirement. Label such references as context, not as this repository's acceptance proof, and keep tracking and release decisions local. During PR review, check issue title/body, PR title/body, ADRs, AGENTS/CONTRIBUTING, and user-facing release notes for misplaced external project references before merge.
