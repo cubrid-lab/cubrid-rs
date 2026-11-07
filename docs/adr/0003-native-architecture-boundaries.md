@@ -7,9 +7,9 @@
 
 ## Context
 
-The Rust workspace contains cubrid-protocol, cubrid-client (Rust synchronous), cubrid-tokio and cubrid-pool. Rust lifetimes, Send/Sync guarantees and future cancellation differ fundamentally from Python's cursor/exception API. Existing Cargo shared version 0.1.0 does not mean every crate has the same maturity.
+The Rust workspace contains cubrid-protocol, cubrid-client (Rust synchronous), cubrid-tokio and cubrid-pool. Rust lifetimes, Send/Sync guarantees and future cancellation differ fundamentally from an unrelated driver's cursor/error API. Existing Cargo shared version 0.1.0 does not mean every crate has the same maturity.
 
-The CUBRID Python driver and SQLAlchemy dialect provide engineering lessons about protocol, SQL and transaction correctness, **not** implementations or cross-language public APIs to copy.
+This decision is grounded in cubrid-rs's own public interfaces, repository code, and CUBRID correctness requirements. External implementations cannot substitute for local validation.
 
 ## Decision
 
@@ -17,7 +17,7 @@ Use a bounded, I/O-agnostic cubrid-protocol decoder/encoder with explicit errors
 
 ## Alternatives considered
 
-Duplicate framing in async and sync clients (rejected as target); transplant Python PEP 249 interfaces (rejected); allow asynchronous cancellation to silently reuse a potentially corrupted connection (rejected); bump all crates to 1.0 solely for uniformity (rejected).
+Duplicate framing in async and sync clients (rejected as target); transplant unrelated DB API interfaces (rejected); allow asynchronous cancellation to silently reuse a potentially corrupted connection (rejected); bump all crates to 1.0 solely for uniformity (rejected).
 
 ## Consequences and trade-offs
 
