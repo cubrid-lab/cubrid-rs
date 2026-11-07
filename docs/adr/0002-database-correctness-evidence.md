@@ -16,7 +16,7 @@ Create targeted tests for this project's observable contracts. Record whether te
 
 ## Alternatives considered
 
-- **Rejected:** Copying Python cursor/exception APIs into Rust; assuming Tokio mutex serialization equals transaction isolation; returning a potentially corrupted pooled connection; treating Cargo compilation as a real broker test.
+- **Rejected:** Replacing public Rust Result and ownership APIs with unrelated interfaces; assuming Tokio mutex serialization equals transaction isolation; returning a potentially corrupted pooled connection; treating Cargo compilation as a real broker test.
 - **Rejected:** Treating another package's API, implementation, or test results as this project's contract.
 - **Rejected:** Marking an unsupported/unverified feature as absent simply because one server or connector failed in a particular test.
 
