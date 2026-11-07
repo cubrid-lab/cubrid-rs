@@ -1,6 +1,8 @@
-# Engineering invariants learned from the Python CUBRID projects
+# Engineering invariants for cubrid-rs
 
-> **Status:** Engineering review checklist and test-design requirements, not evidence that this repository already passes them. Adapted from verified scenarios in [pycubrid](https://github.com/cubrid-lab/pycubrid) and [sqlalchemy-cubrid](https://github.com/cubrid-lab/sqlalchemy-cubrid). Use language-native APIs and the repository's own release policy; do not port Python code or promise tested behavior without evidence.
+> **Status:** Proposed repository-specific engineering checklist, not evidence that existing tests pass.
+
+cubrid-rs owns the Rust CAS protocol, sync/async clients, and pooling crates. Correctness requirements follow Cargo workspace crates, Rust ownership and lifetimes, Tokio cancellation, MSRV, crate packaging, and real CUBRID tests. Use this repository's implementation, public API, relevant live-CUBRID evidence and official CUBRID/JDBC results as appropriate; never assume that another language's driver or ORM test result establishes behavior here.
 
 ## Evidence and adoption method
 
@@ -8,7 +10,7 @@ The Python projects' reusable contribution is **how correctness was established*
 
 Sources: [CAS reconnect/session tests](https://github.com/cubrid-lab/pycubrid/blob/main/tests/test_cas_session_persistence.py), [cursor handle ownership](https://github.com/cubrid-lab/pycubrid/blob/main/tests/test_autocommit_handle_ownership.py), [live state machine](https://github.com/cubrid-lab/pycubrid/blob/main/tests/test_connection_state_machine.py), [official driver differential](https://github.com/cubrid-lab/pycubrid/blob/main/tests/test_official_differential.py), [SQLAlchemy CUBRID architectural boundaries](https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/docs/ARCHITECTURE.md), [DDL rollback tests](https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/test/test_transactional_ddl.py), [integration gate tests](https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/test/test_integration_gate.py), [release note style](https://github.com/cubrid-lab/sqlalchemy-cubrid/blob/main/docs/RELEASE_NOTES_STYLE.md).
 
-Do **not** infer CUBRID support from syntactic similarity with MySQL. In particular, CUBRID DDL rollback is exercised by pycubrid/SQLAlchemy live tests; do not state that CUBRID always auto-commits DDL without version-and-transaction-specific real evidence.
+Do **not** infer CUBRID support from syntactic similarity with MySQL. In particular, CUBRID DDL rollback is exercised by real CUBRID behavior verified for the claimed database version; do not state that CUBRID always auto-commits DDL without version-and-transaction-specific real evidence.
 
 ## Rust-specific protocol, ownership and async safety
 
