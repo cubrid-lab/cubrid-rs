@@ -4,9 +4,9 @@
 
 ## Principles
 
-- Implement **CUBRID CAS and SQL semantics** as the source of truth. Other connectors such as pycubrid can supply protocol evidence and regression scenarios, but never dictate Rust public API, I/O architecture or a MySQL compatibility mode.
-- Use Rust's ownership, borrowing, `Result`, `Send`/`Sync`, Cargo feature and SemVer conventions. No Python DB-API-shaped interfaces and no unnecessary `unsafe` or FFI.
-- Follow the driver-versus-ORM responsibility separation demonstrated by `pycubrid` / `sqlalchemy-cubrid`. The `sea-orm-cubrid` crate owns ORM semantics and SQL generation; this workspace owns CAS protocol and driver operations.
+- Implement **CUBRID CAS and SQL semantics** as the source of truth. Verify CUBRID wire behavior from actual protocol outcomes and live tests; unrelated drivers cannot dictate Rust APIs or async semantics.
+- Use Rust's ownership, borrowing, `Result`, `Send`/`Sync`, Cargo feature and SemVer conventions. Preserve idiomatic Rust interfaces without unnecessary `unsafe` or FFI.
+- This workspace owns CAS protocol and driver operations; external ORM integrations own their own SQL generation and API compatibility.
 
 ## Workspace boundary
 
@@ -64,7 +64,7 @@ Existing crates (from `Cargo.toml` and `docs/ARCHITECTURE.md`): `cubrid-protocol
 
 ## Release compatibility
 
-Cargo `0.x` versioning differs from Go modules and Python. Each crate needs its own public API audit even when using a workspace-wide version. A future `cubrid-rs` v1 family and `sea-orm-cubrid` v1 adapter may coordinate **verified major generations**, but they need not share minor/patch versions. Do not create artificial version bumps or declare unsupported dependencies as compatible.
+Cargo's `0.x` compatibility and versioning requirements govern this workspace. Each crate needs its own public API audit even when using a workspace-wide version. A future `cubrid-rs` v1 family and `sea-orm-cubrid` v1 adapter may coordinate **verified major generations**, but they need not share minor/patch versions. Do not create artificial version bumps or declare unsupported dependencies as compatible.
 
 Related: [crate versioning #30](https://github.com/cubrid-lab/cubrid-rs/issues/30), [MSRV CI #33](https://github.com/cubrid-lab/cubrid-rs/issues/33), [SeaORM adapter](https://github.com/cubrid-lab/sea-orm-cubrid).
 
