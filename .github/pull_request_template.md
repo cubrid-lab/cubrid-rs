@@ -16,3 +16,12 @@ Make sure all items are marked when you submit the pull-request.
 - [ ] Code passes `cargo clippy --workspace -- -D warnings`
 - [ ] Code is formatted (`cargo fmt --all`)
 - [ ] Update `CHANGELOG.md` with a summary of your changes if requested
+
+## CUBRID correctness and regression evidence
+
+<!-- For affected behavior, show the observed checks or mark unavailable honestly. See docs/ENGINEERING_INVARIANTS.md. -->
+
+- [ ] Changes to protocol, sync/async I/O or pools include malformed-frame, cancellation, stale-handle and transaction ownership/failure reasoning as applicable.
+- [ ] Rust public API, `Send`/`Sync`/lifetime and Cargo/MSRV compatibility were assessed if affected.
+- [ ] Real CUBRID tests were executed and their versions/results recorded if database behavior changed, or their absence is explicitly stated; no green result comes from zero/fully skipped tests.
+- [ ] The affected crate's packaging and versioned dependency contract is reviewed for user-visible changes.
