@@ -17,7 +17,7 @@ Applicable SemVer classification: a compatible bug/security fix is generally PAT
 
 ## Alternatives considered
 
-- **Rejected:** Assume all workspace crates are ready for 1.0 because workspace.package has a single version; publish path-only dependencies directly; import Python PEP 249 compatibility rules into Cargo.
+- **Rejected:** Assume all workspace crates are ready for 1.0 because workspace.package has a single version; publish path-only dependencies directly; treat unrelated DB API policies as Cargo contracts.
 - **Rejected:** Making this package's releases contingent on matching another repository's version number or calendar.
 - **Rejected:** Treat an issue, green mock suite, GitHub tag or draft changelog as sufficient release evidence.
 
