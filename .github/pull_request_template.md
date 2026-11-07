@@ -45,3 +45,8 @@ Make sure all items are marked when you submit the pull-request.
 - [ ] Do not confuse local build/offline tests with actual live CUBRID SQL execution. Record the database/version and count of executed integration cases when claiming that behavior.
 - [ ] Public package engines, Go module path, Cargo MSRV/features and versioned dependency constraints are reviewed if relevant; no silent compatibility-breaking setup change.
 - [ ] Required final-head CI and release checks remain in place; missing/failed/skipped checks are reported truthfully and a docs-only shortcut is **not** a release verification.
+
+## Repository-specific technical justification
+
+- [ ] This change is justified by `cubrid-rs`'s own Rust crate API, CAS protocol, Cargo/MSRV requirements, or verified CUBRID behavior, not another language's design precedent or release schedule.
+- [ ] External references, if any, are explicitly needed for tested Cargo consumers or independent database comparison and do not replace this repository's tests, issue ownership, or approval.
