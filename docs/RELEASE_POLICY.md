@@ -1,0 +1,95 @@
+# Release and compatibility policy (proposed)
+
+> **Decision stage:** Draft policy for review, 2026-11-07. This document is a release contract proposal; no version, tag, dependency or publication workflow changes are made by this PR. Architecture/implementation follow only after approval and merge.
+
+## Rust CAS workspace correctness and verification
+
+Review [the repository-specific engineering invariants](ENGINEERING_INVARIANTS.md) before accepting behavioral CUBRID changes or declaring database compatibility. The checklist follows this repository's own API, implementation risks, and verifiable CUBRID behavior. **Written review rules are not executable checks**: the real-CUBRID release gate below remains mandatory, and any missing test coverage is tracked as implementation work rather than claimed complete.
+
+## Reproducible development setup prerequisite
+
+[Setup ADR 0005](adr/0005-development-setup.md) and the [language-specific development setup guide](DEVELOPMENT_SETUP.md) define the pre-implementation environment contract. A release candidate must be built from a clean checkout with the reviewed manifest and supported compiler/runtime, and must verify the **actual distributed artifact** independently of local workspace source. Setup ready, offline tests passed, live CUBRID verified, and registry publication confirmed are distinct outcomes. Document missing lint config, non-resolving module/crate dependency or absent integration harness as **blocking/unverified**, not green. A passing unit suite cannot waive the candidate's real-database gate. Changing the minimum supported consumer runtime/module path/MSRV is separately reviewed for SemVer impact; no such change is authorized by this setup documentation.
+
+## Version numbers
+
+Apply Cargo SemVer per publicly distributed workspace crate; each crate's public API, dependencies and support boundaries determine its own compatibility.
+
+| Change | Before 1.0 | From 1.0 onward |
+| --- | --- | --- |
+| New backward-compatible functionality | MINOR (0.y+1.0) | MINOR |
+| Incompatible public API, supported runtime, connection/result behavior, or SQL/migration contract | MINOR with explicit migration notes | MAJOR |
+| Backward-compatible defect, security, documentation or tooling fix | PATCH when published behavior remains compatible | PATCH |
+| Internal-only code/documentation without user-visible change | No release required unless part of a reviewed release batch | Same |
+
+A severe correctness defect is repaired promptly; explain any observable change, regression tests and consumer impact. Do not conceal an incompatible change as PATCH. Do not infer compatibility from unchanged type signatures alone: SQL meaning, column value mapping and schema migration behavior can break applications.
+
+A release's **version, supported runtime/database ranges, published package exports, immutable tag and release notes must agree**. The new version is not considered released merely because a manifest was edited or a draft PR merged.
+
+## Rust crate compatibility and publish order
+
+- Specify public API and compatible Cargo dependency ranges per workspace crate, including feature flags, `Send`/`Sync`, error and ownership contracts.
+- Decide between workspace-synchronized and independent crate versions before 1.0, based on actual per-crate readiness; do not change Cargo metadata solely to match version numbers.
+- Publish dependency crates in a resolvable order and verify each real external Cargo consumer before declaring the whole workspace stable.
+- Treat SeaORM or other ORM packages as optional consumers of the published Rust interfaces. Their releases and independently tested compatibility ranges do not determine this workspace's version or schedule.
+- Record verified CUBRID server-version support and mark all untested combinations unverified.
+
+## Workflow and release notes
+
+1. Merge scoped code/test/documentation PRs with required final-head CI. Architectural notes and mocked tests are not substitutes for live CUBRID tests.
+2. Open a **reviewed release candidate PR** containing the proposed version change, `Cargo.toml` metadata and versioned dependency constraints, release notes, API/compatibility notes, and any migration instructions. No automatic publish directly from arbitrary feature PR merges.
+3. Run an explicit **release preflight** on the exact candidate commit: quality/lint/tests, real supported database matrix where the release makes DB behavior claims, package/build artifact verification, dependency lower-bound and consumer smoke tests, and security/secret checks. Fail closed for missing, failed, cancelled or skipped required release checks.
+4. A maintainer approves the candidate and release notes. Release/publishing permission changes need independent security review. Only then create immutable tags and publish the versioned crates to crates.io. Do not overwrite tags or re-publish an existing version.
+5. Verify the public registry artifact and GitHub Release match the reviewed commit and tag. Record evidence and a release recovery/retry procedure; do not mask a partial publish as a success.
+
+Recommended release-note headings (omit empty sections): **Highlights**, **Breaking changes / Migration**, **Fixes**, **Compatibility**, **Dependencies**, and **Contributors**. Attribute contributions inline with `by @username` where provenance is known; optionally welcome verified first-time contributors. Avoid broken Markdown line wrapping, misleading first-contribution claims, and autogenerated duplicate contributor credits.
+
+Release automation may prepare a candidate PR, but **must not skip the review, release gate or registry verification**. Use reviewed Cargo-native release tooling and keep workspace crate dependency order explicit.
+
+## Mandatory live-CUBRID release verification
+
+**Release rule, not an existing CI claim:** Before publishing **any release that changes or claims database behavior**, run DB-backed tests against the exact candidate commit and packageable Cargo candidate crates; before **1.0**, complete the full documented supported CUBRID version matrix. For ordinary doc-only or tooling PRs, lightweight checks may be sufficient, but the eventual **release candidate** must not use the docs-only shortcut to skip a required database gate.
+
+**Minimum evidence by responsibility:**
+
+| Verification category | Database driver | ORM/dialect adapter |
+| --- | --- | --- |
+| Connection and session | Broker/CAS handshake, version discovery, disconnect/reconnect, stale handles | Driver connection acquisition and correct transaction-bound session |
+| Query behavior | Prepared/parameterized execution, SELECT and DML results, cursor/stream cleanup | Actual ORM-generated SELECT/JOIN/CRUD SQL, result mapping, associations |
+| Data fidelity | NULL, BIGINT, decimal precision, text/Unicode, bytes, date/time, collections as supported | ORM-level round trips and type inference/conversion for the same supported types |
+| Transactions | Commit, rollback, concurrent clients, failed/uncertain commit, isolation | Nested transactions/savepoints if advertised, rollback and error propagation |
+| Failure/recovery | Timeout, CAS restart, broken connection, SQL/server errors, no unsafe replay | Failed queries/transactions, connection loss and no silent success |
+| Schema/migration | Catalog or DDL only where the driver advertises support | Schema discovery and real CREATE/ALTER/index/constraint changes, destructive-change safety and recovery |
+
+**Matrix and test validity:**
+
+1. Identify actual CUBRID **server and broker** versions under test and the exact driver/ORM/runtime/dependency versions. A proposed range (e.g. 10.2–11.4) is not a verified range until each advertised version family is tested or its limits explicitly stated.
+2. Provision an isolated CUBRID database with a reliable readiness probe. Create unique test tables or databases; clean up safely even after failures. Never run destructive migration tests on shared or production databases.
+3. Run non-vacuous tests that **connect to the server, execute SQL and assert stored/read results**. A healthy Docker container, successful ping, mock test, query snapshot or passing job with zero integration tests is **not evidence**.
+4. Include both success and failure-path evidence. Add selected JDBC-based semantic comparisons where valuable for rows, types and transaction outcomes, but do not depend on byte-for-byte parity or use JDBC as an implementation blueprint.
+5. Record the tested commit SHA, CUBRID version and image/reference digest where possible, test command, counts of passed/failed/skipped cases, and artifacts/logs. Zero executed tests, missing environment, skipped required cases or failing required database jobs block the relevant release claim.
+6. Run a **release-candidate-only full verification** even when change-impact routing skips DB jobs on docs-only pull requests. Fail closed for inconclusive evidence; rerun on the exact final candidate after a code or release-manifest change.
+7. Run `cargo package`/`cargo publish --dry-run` as appropriate and compile a **clean external Cargo consumer** using the exact candidate crates and versioned dependencies. Passing workspace-local tests is not sufficient for registry dependency resolution, feature compatibility, or MSRV.
+
+**Scope:** This is a policy requirement. Existing green CI runs are not reclassified as complete integration evidence. Implementation of new CI jobs, server provisioning and tests must be separately reviewed. No automatic 1.0 release is authorized by this document.
+
+**Rust-specific current evidence:** `.github/workflows/ci.yml` runs `cargo test --workspace -- --ignored` with live CUBRID `11.0` and `11.2`; separately `cargo test --workspace --lib` on Rust stable and 1.85. For releases, verify ignored tests are truly live and non-vacuous and cover each published crate's advertised behavior. Expand the release matrix to all claimed CUBRID versions, run MSRV and async/pool cancellation and connection-lifecycle assertions, and test packaged crates in registry dependency order. Do not treat Rust `cubrid-client` as the same package as npm `cubrid-client`.
+
+Related design [#34](https://github.com/cubrid-lab/cubrid-rs/issues/34) and MSRV [#33](https://github.com/cubrid-lab/cubrid-rs/issues/33).
+
+## 1.0 release gate
+
+A 1.0 release requires: a reviewed/frozen public interface, documented supported runtime and CUBRID matrix, real-database evidence for advertised database behavior, transaction/result/precision/error correctness, packaged consumer/install test, reproducible CI, explicit unsupported features, and upgrade instructions from 0.x. Documentation or test-count badges alone do not satisfy this gate.
+
+Design PRs may be developed as drafts in parallel, but **must not be treated as implementing or approving a release contract**. Do not remove, overwrite or silently narrow an existing 0.x public feature while preparing this policy.
+
+## Rust workspace and Cargo release policy
+
+- `cubrid-rs` currently has four crates: `cubrid-protocol`, `cubrid-client` (Rust crate, distinct from the npm package of the same name), `cubrid-tokio`, `cubrid-pool`. Their manifests inherit one workspace version **`0.1.0`**, Rust MSRV 1.75, and Edition 2021. A shared manifest version is currently an implementation choice, not evidence all crates reached the same stability.
+- Cargo considers the leftmost nonzero component the compatibility boundary: compatible `0.1.z` versus incompatible `0.2.0`, with special treatment for `0.0.z`. See https://doc.rust-lang.org/cargo/reference/semver.html.
+- **Release decision:** preserve a shared version for a coherent 0.x workspace only where crates have identical release readiness. Before any 1.0, explicitly choose either (a) joint 1.0 after **all** crates pass their separate contract gates, or (b) decouple `version.workspace` so stable crates can release without prematurely labeling others as stable. No automatic forced lockstep. Document the selected option in a reviewed PR.
+- Public structs/enums, trait implementations, lifetimes, async future bounds, `Send`/`Sync` guarantees, optional features, error variants, MSRV and Cargo feature unification may break consumers; consider each in version classification. Treat MSRV increases as a supported-consumer compatibility change and document migration.
+- Dependency/publish ordering is `cubrid-protocol` first, then its dependents (`cubrid-client`, `cubrid-tokio`), followed by `cubrid-pool` after all its dependencies exist in the registry. Resolve actual graph and versioned `path` dependencies before attempting a publish; **do not** assume the current path-only manifests are registry-release ready.
+- Per-crate release validation: `cargo fmt --all -- --check`, `cargo clippy --workspace --all-targets --all-features -- -D warnings`, `cargo test --workspace --all-features`, MSRV check, cargo package/publish dry run of the exact crate and a clean external-consumer test. Add live DB/connection and async cancellation/pool tests for claims made.
+- The SeaORM adapter is a **separately published crate**. Coordinate an evidenced compatible v1 generation with it; do not copy its MSRV or its minor/patch numbers into this workspace.
+
+Related: [Rust API policy #30](https://github.com/cubrid-lab/cubrid-rs/issues/30), [MSRV CI #33](https://github.com/cubrid-lab/cubrid-rs/issues/33), [native Rust design #34](https://github.com/cubrid-lab/cubrid-rs/issues/34).
