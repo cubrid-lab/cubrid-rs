@@ -1,10 +1,7 @@
 > **Last updated**: 2026-03-20
 >
-> For the ecosystem-wide view, see the
-> [CUBRID Lab Ecosystem Roadmap](https://github.com/cubrid-lab/.github/blob/main/ROADMAP.md).
 >
-> 📋 [GitHub Milestones](https://github.com/cubrid-lab/cubrid-rs/milestones) ·
-> 🗂️ [Org Project Board](https://github.com/orgs/cubrid-lab/projects/2)
+> 📋 [GitHub Milestones](https://github.com/cubrid-lab/cubrid-rs/milestones)
 
 ---
 
