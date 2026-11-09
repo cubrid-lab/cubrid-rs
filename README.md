@@ -259,7 +259,6 @@ This project is part of [CUBRID Lab](https://github.com/cubrid-lab), an independ
 
 See [`docs/ROADMAP.md`](docs/ROADMAP.md) for detailed release plans and protocol implementation progress.
 
-For the ecosystem-wide view, see the [CUBRID Lab Ecosystem Roadmap](https://github.com/cubrid-lab/.github/blob/main/ROADMAP.md) and [Project Board](https://github.com/orgs/cubrid-lab/projects/2).
 
 
 MIT
