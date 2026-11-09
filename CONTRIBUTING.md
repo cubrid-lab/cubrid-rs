@@ -1,6 +1,6 @@
 # Contributing to cubrid-rs
 
-**Issue titles** use type-only prefixes such as `feat:` and `bug:` without module scope. **PRs and commits** continue to use Conventional Commits and local CI. See the [AGENTS.md](AGENTS.md) for evidence, triage and verification responsibilities.
+**Issue titles** use type-only prefixes such as `feat:` and `bug:` without module scope. **PRs and commits** continue to use Conventional Commits and local CI. See [AGENTS.md](AGENTS.md) for evidence, triage and verification responsibilities.
 
 Thank you for your interest in contributing. This guide explains the development workflow and quality standards for this repository.
 
