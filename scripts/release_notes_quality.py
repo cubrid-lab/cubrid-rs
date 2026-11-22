@@ -22,6 +22,12 @@ ALLOWED = {
 }
 RAW_GENERATED = re.compile(r"^(?:\*\s+|-\s+\*\*(?:feat|fix|chore|ci|docs|test):)", re.I)
 
+# Compatibility and upgrade bullets may be historical cautions, not authored changes.
+# A format check cannot establish whether an account is human; reviewers verify that.
+ADVISORY_SECTIONS = {"Compatibility", "Upgrade notes"}
+CREDIT = re.compile(r"\bby @[A-Za-z0-9][A-Za-z0-9-]*(?:\s*(?:,|and)\s*@[A-Za-z0-9][A-Za-z0-9-]*)*\s*$")
+
+
 
 def violations(text: str, version: str, repository: str) -> list[str]:
     """Report objective regressions without rewriting the historical text."""
@@ -75,14 +81,14 @@ def violations(text: str, version: str, repository: str) -> list[str]:
                 errors.append(f"uncurated release-please bullet under {title}")
             if len(line.strip()) < 12:
                 errors.append(f"non-informative bullet under {title}")
+            if title not in ADVISORY_SECTIONS and not CREDIT.search(line):
+                errors.append(f"missing contributor credit for change under {title}")
             key = re.sub(r"\s+", " ", line.strip().casefold())
             if key in seen:
                 errors.append(f"duplicate bullet under {title}")
             seen.add(key)
     if not bullets:
         errors.append("no changes described")
-    if " by @" not in text:
-        errors.append("missing traceable contributor byline; verify author evidence")
     return errors
 
 
