@@ -46,6 +46,31 @@ class ReleaseNotesQualityTests(unittest.TestCase):
                             "v1.2.0 commits](https://github.com/cubrid-lab/example/commits/v1.2.0)")
         self.assertEqual([], self.check(body))
 
+    def test_each_change_has_its_own_credit(self):
+        extra = "- Explain connection retries ([#13](https://github.com/cubrid-lab/example/pull/13))"
+        body = GOOD.replace("**Full Changelog:**", extra + "\n\n**Full Changelog:**")
+        self.assertTrue(any("missing contributor credit" in x for x in self.check(body)))
+
+    def test_credit_in_prose_does_not_replace_entry_credit(self):
+        body = GOOD.replace(" by @reviewed-human", "")
+        body = body.replace("This update makes", "By @reviewed-human, this update makes")
+        self.assertTrue(any("missing contributor credit" in x for x in self.check(body)))
+
+    def test_credit_must_end_change(self):
+        body = GOOD.replace(" by @reviewed-human", " by @reviewed-human, see future changes")
+        self.assertTrue(any("missing contributor credit" in x for x in self.check(body)))
+
+    def test_multiple_credits_format(self):
+        body = GOOD.replace(" by @reviewed-human", " by @reviewed-human and @co-author")
+        self.assertEqual([], self.check(body))
+
+    def test_unattributed_compatibility_warning_is_allowed(self):
+        body = GOOD.replace(
+            "### Bug Fixes",
+            "### Compatibility\n\n- Existing users should keep their pinned client version.\n\n### Bug Fixes",
+        )
+        self.assertEqual([], self.check(body))
+
     def test_wrong_heading(self):
         self.assertTrue(any("heading" in x for x in self.check(GOOD, "v1.3.0")))
 
