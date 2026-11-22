@@ -10,6 +10,8 @@ Use this repository's own versioned `docs/releases/vX.Y.Z.md` descriptions as th
 - Combine duplicate descriptions of one change. Include direct implementing PR/commit links and verified human credits inline. An issue reporter is not necessarily the author; verify first-contribution claims separately. Do not label bot-authored work as human.
 - Finish with exactly one version-correct Full Changelog link. The first tag may link its commit list. Preserve exact release-version provenance rather than inventing missing versions or silently changing tags.
 
+The offline checker requires a `by @handle` credit at the end of **each change bullet**; a credit elsewhere in the release does not cover unrelated entries. Multiple credited handles are accepted in a byline. `Compatibility` and `Upgrade notes` may contain historical cautions without invented implementation authors; actual changes in these sections still require manual attribution review. The checker cannot identify bots, verify people or prove tag provenance. These remain reviewer responsibilities, including for security warnings.
+
 ## Review and publication safeguards
 
 The read-only CI gate checks Markdown structure, summaries, obvious duplicates, raw generated bullets and links. It cannot prove factual correctness, semantics, author identity or GitHub body equality; review these manually against the tagged code and release history.
